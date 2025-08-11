@@ -72,3 +72,14 @@ def organize_files(folder_path, sim = False):
     
     print_summary(summary)
 
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Organize files in a folder by type.")
+    parser.add_argument("folder", help="Path to the folder to organize")
+    parser.add_argument("--simulate", action="store_true", help="Simulate without moving files")
+    args = parser.parse_args()
+
+    organize_files(args.folder, args.simulate)
+    if not os.path.isdir(args.folder):
+        print(f"Error: The path '{args.folder}' is not a valid directory.")
+    else:
+        organize_files(args.folder, args.simulate)
