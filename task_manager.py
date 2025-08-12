@@ -54,3 +54,21 @@ def mark_done(index):
         print(f"Task #{index} marked as done.")
     except IndexError:
         print("Invalid task number.")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Simple terminal task manager.")
+    parser.add_argument("command", choices=["add", "list", "done", "delete"], help="Command to run")
+    parser.add_argument("arg", nargs="*", help="Arguments for the command")
+    args = parser.parse_args()
+
+    if args.command == "add":
+        description = args.arg[0]
+        priority = args.arg[1] if len(args.arg) > 1 else None
+        tags = args.arg[2:] if len(args.arg) > 2 else []
+        add_task(description, priority, tags)
+    elif args.command == "list":
+        list_tasks()
+    elif args.command == "done":
+        mark_done(int(args.arg[0]))
+    elif args.command == "delete":
+        delete_task(int(args.arg[0]))
